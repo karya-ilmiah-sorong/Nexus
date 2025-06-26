@@ -1,41 +1,61 @@
-// Inisialisasi audio
-const backgroundAudio = new Audio('1.m4a');
-backgroundAudio.loop = true;
+class AudioPlayer {
+    constructor() {
+        this.audio = new Audio('1.mp3');
+        this.audio.loop = true;
+        this.audio.volume = 0.5;
+        this.isPlaying = false;
 
-// Simpan status audio di sessionStorage
-let isAudioPlaying = sessionStorage.getItem('audioPlaying') === 'true';
+        // Event untuk handle tab/window close
+        window.addEventListener('beforeunload', () => {
+            this.stop();
+        });
 
-// Fungsi untuk memulai/menghentikan audio
-function toggleAudio(play) {
-    if (play) {
-        backgroundAudio.play().catch(e => console.log('Autoplay prevented:', e));
-        sessionStorage.setItem('audioPlaying', 'true');
-    } else {
-        backgroundAudio.pause();
-        sessionStorage.setItem('audioPlaying', 'false');
+        // Cek session untuk lanjutkan pemutaran
+        if (sessionStorage.getItem('audioPlaying') === 'true') {
+            this.play();
+        }
+    }
+
+    play() {
+        if (!this.isPlaying) {
+            this.audio.play()
+                .then(() => {
+                    this.isPlaying = true;
+                    sessionStorage.setItem('audioPlaying', 'true');
+                })
+                .catch(error => {
+                    console.log('Autoplay prevented:', error);
+                    // Fallback untuk mobile devices
+                    document.addEventListener('click', this.playOnInteraction.bind(this), { once: true });
+                });
+        }
+    }
+
+    playOnInteraction() {
+        this.audio.play()
+            .then(() => {
+                this.isPlaying = true;
+                sessionStorage.setItem('audioPlaying', 'true');
+            });
+    }
+
+    stop() {
+        this.audio.pause();
+        this.audio.currentTime = 0;
+        this.isPlaying = false;
+        sessionStorage.removeItem('audioPlaying');
     }
 }
 
-// Saat halaman dimuat
-document.addEventListener('DOMContentLoaded', function() {
-    if (isAudioPlaying) {
-        toggleAudio(true);
-    }
-    
-    // Tangkap event sebelum unload (saat keluar/tutup tab)
-    window.addEventListener('beforeunload', function() {
-        toggleAudio(false);
+// Inisialisasi player
+const backgroundMusic = new AudioPlayer();
+
+// Otomatis play saat login
+if (window.location.pathname.includes('menu.html') || 
+    window.location.pathname === '/') {
+    document.addEventListener('DOMContentLoaded', () => {
+        if (sessionStorage.getItem('isAuthenticated') === 'true') {
+            backgroundMusic.play();
+        }
     });
-});
-
-// Fungsi untuk halaman login (pemutaran pertama)
-function startBackgroundMusic() {
-    toggleAudio(true);
-    sessionStorage.setItem('audioInitialized', 'true');
 }
-
-// Ekspor fungsi untuk digunakan di file lain
-window.audioControl = {
-    toggleAudio,
-    startBackgroundMusic
-};
