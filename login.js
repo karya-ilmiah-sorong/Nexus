@@ -1,25 +1,34 @@
 document.addEventListener('DOMContentLoaded', function() {
     const loginForm = document.getElementById('loginForm');
     
-    loginForm.addEventListener('submit', function(e) {
-        e.preventDefault();
+    // Tambahkan di akhir event listener login
+loginForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+    
+    if(username === 'admin' && password === '12') {
+        sessionStorage.setItem('isAuthenticated', 'true');
         
-        const username = document.getElementById('username').value;
-        const password = document.getElementById('password').value;
-        
-        if(username === 'admin' && password === 'password') {
-            // Play sound
-            soundManager.playLoginSound();
-            
-            // Tunggu sound selesai sebelum redirect
-            setTimeout(() => {
-                sessionStorage.setItem('isAuthenticated', 'true');
+        // Mulai musik sebelum redirect
+        const audio = new Audio('1.mp3');
+        audio.loop = true;
+        audio.volume = 0.3;
+        audio.play()
+            .then(() => {
+                sessionStorage.setItem('audioPlaying', 'true');
                 window.location.href = 'menu.html';
-            }, 500);
-        } else {
-            alert('Username atau password salah!');
-        }
-    });
+            })
+            .catch(error => {
+                console.log('Autoplay prevented, will play after redirect');
+                sessionStorage.setItem('audioPlaying', 'true');
+                window.location.href = 'menu.html';
+            });
+    } else {
+        alert('Username atau password salah!');
+    }
+});
 });
 
 // Fungsi logout
