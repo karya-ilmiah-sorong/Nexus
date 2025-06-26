@@ -98,3 +98,13 @@ disableBackNavigation();
 window.addEventListener('beforeunload', function() {
     window.history.pushState(null, null, window.location.href);
 });
+
+// Handle musik saat logout
+document.getElementById('logout-btn')?.addEventListener('click', function() {
+    sessionStorage.removeItem('audioPlaying');
+    const audio = document.querySelector('audio');
+    if (audio) {
+        audio.pause();
+        audio.currentTime = 0;
+    }
+});
