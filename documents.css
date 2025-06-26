@@ -1,0 +1,119 @@
+.documents-container {
+    padding: 15px;
+    margin-top: 10px;
+}
+
+.document-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: white;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 15px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.document-item:hover {
+    transform: translateY(-3px);
+}
+
+.document-info {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+}
+
+.document-icon {
+    width: 40px;
+    height: 40px;
+    background-color: #ff4d4d;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 15px;
+    color: white;
+    font-size: 18px;
+}
+
+.document-details h3 {
+    margin: 0;
+    color: #333;
+    font-size: 16px;
+}
+
+.document-details p {
+    margin: 5px 0 0;
+    color: #777;
+    font-size: 13px;
+}
+
+.download-button {
+    background: linear-gradient(135deg, #6e8efb, #a777e3);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 15px;
+    font-size: 14px;
+    cursor: pointer;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: all 0.2s ease;
+}
+
+.download-button:hover {
+    background: linear-gradient(135deg, #5d7de8, #9666d6);
+    transform: translateY(-2px);
+    box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+}
+
+.download-button:active {
+    transform: translateY(0);
+}
+
+/* [Kode sebelumnya tetap sama] */
+
+/* Document Sections */
+.document-section {
+    margin-bottom: 25px;
+}
+
+.section-title {
+    color: #555;
+    font-size: 18px;
+    margin-bottom: 15px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Document Type Colors */
+.document-icon.pdf {
+    background-color: #ff4d4d;
+}
+
+.document-icon.word {
+    background-color: #2b579a;
+}
+
+.download-button.pdf {
+    background: linear-gradient(135deg, #ff4d4d, #ff6666);
+}
+
+.download-button.word {
+    background: linear-gradient(135deg, #2b579a, #3a6bc9);
+}
+
+.download-button.pdf:hover {
+    background: linear-gradient(135deg, #e64444, #e55c5c);
+}
+
+.download-button.word:hover {
+    background: linear-gradient(135deg, #24467d, #315ca8);
+}
