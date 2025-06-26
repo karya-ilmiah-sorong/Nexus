@@ -1,6 +1,6 @@
 class AudioPlayer {
     constructor() {
-        this.audio = new Audio('1.m4a');
+        this.audio = new Audio('1.mp3');
         this.audio.loop = true;
         this.audio.volume = 0.5;
         this.isPlaying = false;
