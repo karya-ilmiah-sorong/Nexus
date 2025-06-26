@@ -12,7 +12,7 @@ loginForm.addEventListener('submit', function(e) {
         sessionStorage.setItem('isAuthenticated', 'true');
         
         // Mulai musik sebelum redirect
-        const audio = new Audio('1.m4a');
+        const audio = new Audio('1.mp3');
         audio.loop = true;
         audio.volume = 0.3;
         audio.play()
